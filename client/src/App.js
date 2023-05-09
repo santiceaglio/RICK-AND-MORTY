@@ -1,19 +1,23 @@
-import './App.css';
-import {Routes, Route} from "react-router-dom";
-import FavoritesPage from './views/FavoritesPage';
-import DetailPage from './views/DetailPage';
-import HomePage from './views/HomePage';
-import LandingPage from './views/LandingPage';
-import About from './views/About';
-import Nav from "./components/Nav"
-import ErrorPage from "./views/ErrorPage"
-import { useLocation } from 'react-router-dom';
 
+import './App.css';
+import {Routes,Route, useLocation} from "react-router-dom";
+
+import DetailPage from "./views/DetailPage";
+import FavoritePage from "./views/FavoritesPage";
+import HomePage from "./views/HomePage";
+import LeandingPage from "./views/LeandingPage";
+import AboutPage from "./views/AboutPage";
+import ErrorPage from './views/ErrorPage';
+import Register from "./components/Register";
+
+import Nav from './components/Nav';
+
+//important: Esta configuracion de axios es para el deploy
 import axios from "axios";
 
-const desarrolloApp = "http://localhost:3001";
-const produccionApp = "";
-axios.defaults.baseURL= desarrolloApp;
+const desarrolloApp ="http://localhost:3001";
+const produccionApp="";
+axios.defaults.baseURL=desarrolloApp;
 
 function App() {
 
@@ -22,33 +26,35 @@ function App() {
   const verificarRutas=()=>{
     switch(pathname){
       case "/": return false
-      case "/home":return true
+      case "/home": return true
       case "/about": return true
-      case "/favorite": return true
-      case "/detail/:id": return false
+      case "/favorite":return true
+      case "/detail/:id":return false
+      case "/register": return false
       default: return false
     }
   }
+
+
+
+
   return (
     <div className="App">
 
       {verificarRutas() && <Nav />}
       
-      
-
       <Routes>
-        
-        <Route  path="/" element={<LandingPage/>}/>
-        <Route  path="/home" element={<HomePage/>}/>
-        <Route  path="/favorite" element={<FavoritesPage/>}/>
-        <Route  path="/about" element={<About/>}/>
-        <Route path="/detail/:id" element={<DetailPage/>}/>
-        <Route path="*" element={<ErrorPage />} />
 
-
-
+        <Route path="/" element={< LeandingPage/>}/>
+        <Route path="/home" element={< HomePage/>}/>
+        <Route path="/favorite" element={< FavoritePage />} />
+        <Route path="/about" element={< AboutPage />} />
+        <Route path="/detail/:id" element={< DetailPage />} />
+        <Route path='/register' element={<Register />}/>
+        <Route path='*' element={<ErrorPage />}/>
 
       </Routes>
+
     </div>
   );
 }

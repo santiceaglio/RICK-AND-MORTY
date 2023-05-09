@@ -1,30 +1,35 @@
 import React from 'react'
-import styles from "../assets/styles/components/SearchBar.module.css"
-import { useDispatch } from 'react-redux'
-import { getCharacterByName } from '../redux/actions'
-import { useState } from 'react'
+import { useState } from 'react';
+import { useDispatch } from 'react-redux';
 
+import styles from  '../assets/styles/components/SearchBar.module.css';
+
+import {getCharacterByName} from "../redux/actions"
 const SearchBar = () => {
+	const dispatch = useDispatch();
+	const [search, setSearch] = useState('');
 
-  const dispatch = useDispatch()
-
-  const [search, setSearch] = useState("");
-
-  const handleValue = (event) => {
+	//para el input
+	const handleValue = (event) => {
 		setSearch(event.target.value);
 	};
 
-  const handleSearch=(event)=>{
-		event.preventDefault();		
+	//para el btn cuando hace click
+	const handleSearch = (event) => {
+		event.preventDefault();
 		dispatch(getCharacterByName(search));
-	}
+	};
 
-  return (
-    <div className={styles.content}>
-    <input type="text" placeholder="..Name" className={styles.input} onChange={handleValue}/>
-    <button className={styles.button} onClick={handleSearch}>Search</button>
-        </div>
-  )
+	return (
+		<div className={styles.content}>
+			<input
+				type="text"
+				placeholder="Name..."
+				className={styles.input}
+				onChange={handleValue}
+			/>
+			<button className={styles.button} onClick={handleSearch}>Searh</button>
+		</div>
+	);
 }
-
 export default SearchBar

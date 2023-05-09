@@ -1,34 +1,32 @@
+import React, { useReducer } from 'react';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { getAllFavorites } from '../redux/actions';
 
+import Cards from '../components/Cards';
 
-
-
-import React from 'react'
-import styles from "../assets/styles/components/views/FavoritesPage.module.css"
-import { useDispatch } from 'react-redux'
-import { useSelector } from 'react-redux'
-import { useEffect } from 'react'
-import Cards from '../components/Cards'
-import {getAllFavorites} from '../redux/actions.js'
-
+import styles from '../assets/styles/components/views/FavoritePage.module.css';
 const FavoritesPage = () => {
+	const dispatch = useDispatch();
+	const user = useSelector((state) => state.user);
+	const allFavorites = useSelector((state) => state.favorites);
 
-  const dispatch=useDispatch();
+  	console.log("Este es el user desde favorite",user);
 
-  const allFavorites=useSelector((state)=> state.favorites);
+	useEffect(() => {
+		dispatch(getAllFavorites(user));
+	}, []);
 
-  useEffect(()=> {
-    dispatch(getAllFavorites());
-  }, [allFavorites]);
+	useEffect(() => {
+		dispatch(getAllFavorites(user));
+	}, [allFavorites]);
 
+	return (
+		<div className={styles.content}>
+			<h1 className={styles.titleMain}>YOUR FAVORITES</h1>
+			<Cards allCharacters={allFavorites} />
+		</div>
+	);
+};
 
-  return (
-    <div>
-      <h1>Favorite's Page
-        
-      </h1>
-      <Cards allCharacters={allFavorites} />
-    </div>
-  )
-}
-
-export default FavoritesPage
+export default FavoritesPage;
