@@ -8,7 +8,7 @@ import { useDispatch } from 'react-redux'
 import { useSelector } from 'react-redux'
 import { useEffect } from 'react'
 import Cards from '../components/Cards'
-import getAllFavorites from '../../../api/src/controllers/getAllFavorites'
+import {getAllFavorites} from '../redux/actions.js'
 
 const FavoritesPage = () => {
 
