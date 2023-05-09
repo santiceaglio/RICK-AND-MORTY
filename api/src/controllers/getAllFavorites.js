@@ -3,7 +3,7 @@ const User = require("../db/models/User.js")
 
 const getAllFavorites = async(req, res)=>{
 
-    const {idUser}=req.body;
+    const {idUser}=req.query;
 
     try {
         const user = await User.findByPk(idUser);
